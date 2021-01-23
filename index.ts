@@ -13,7 +13,7 @@ import { RedisConfig } from './src/utils';
 import { updateQueuesCache } from './src/queues';
 import { registerRequestHandlers } from './src/request-handlers';
 
-const pkg = require(`${__dirname}/package.json`);
+const pkg = require(`./package.json`);
 
 program.version(pkg.version);
 
