@@ -49,7 +49,7 @@ program
     process.env.REDIS_PASSWORD,
   )
   .option('--tls [tls]', 'Activate secured TLS connection to Redis')
-  .option('-u, --uri [uri]', 'Redis URI.', process.env.REDIS_URI)
+  .option('-u, --uri [uri]', 'Redis URI.', process.env.REDIS_URI || 'redis://')
   .option(
     '-s, --sentinels [host:port]',
     'Comma-separated list of sentinel host/port pairs',
@@ -62,8 +62,8 @@ program
   )
   .option(
     '-b, --backend <backend>',
-    'QueueMetrics backend. Defaults to api.queuemetrics.io',
-    'api.queuemetrics.io',
+    'QueueMetrics backend. Defaults to wss://api.queuemetrics.io',
+    process.env.BACKEND || 'wss://api.queuemetrics.io',
   )
   .parse(process.argv);
 
@@ -100,7 +100,7 @@ program
     tls: redisConfig.tls,
   });
 
-  const websocketUri = `ws://${program.backend}`;
+  const websocketUri = `${program.backend}`;
 
   console.log(`Attempting to connect to ${websocketUri}`);
 
