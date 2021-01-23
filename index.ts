@@ -49,7 +49,7 @@ program
     process.env.REDIS_PASSWORD,
   )
   .option('--tls [tls]', 'Activate secured TLS connection to Redis')
-  .option('-u, --uri [uri]', 'Redis URI.', process.env.REDIS_URI || 'redis://')
+  .option('-u, --uri [uri]', 'Redis URI.', process.env.REDIS_URI)
   .option(
     '-s, --sentinels [host:port]',
     'Comma-separated list of sentinel host/port pairs',
