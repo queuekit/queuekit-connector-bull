@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable @typescript-eslint/no-floating-promises */
