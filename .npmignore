@@ -1,7 +1,6 @@
 coverage
 docs
 docker-compose.yaml
-src
 .eslintrc.js
 .github
 .prettierignore
