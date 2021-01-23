@@ -102,6 +102,8 @@ program
 
   const websocketUri = `ws://${program.backend}`;
 
+  console.log(`Attempting to connect to ${websocketUri}`);
+
   const socket = io(websocketUri, { reconnectionDelayMax: 1000 });
 
   socket.on('connect', () => {
