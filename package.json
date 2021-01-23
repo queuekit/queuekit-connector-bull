@@ -2,13 +2,9 @@
   "name": "queuemetrics-connector-bull",
   "version": "0.0.3",
   "description": "Connects Bull queues to QueueMetrics.io dashboard.",
-  "main": "index.js",
-  "author": "Jason Russell <jason@queuemetrics.io>",
+  "author": "Jason Russell",
   "license": "MIT",
   "preferGlobal": true,
-  "bin": {
-    "queuemetrics-connector-bull": "./dist/index.js"
-  },
   "keywords": [
     "queuemetrics",
     "bull",
@@ -16,8 +12,22 @@
     "dashboard",
     "queue"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/queuemetrics/queuemetrics-connector-bull.git"
+  },
+  "bugs": {
+    "url": "https://github.com/queuemetrics/queuemetrics-connector-bull/issues"
+  },
+  "homepage": "https://github.com/queuemetrics/queuemetrics-connector-bull#readme",
+  "bin": {
+    "queuemetrics-connector-bull": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "np": "np --no-2fa",
     "start": "./index.ts"
   },
   "dependencies": {
