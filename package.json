@@ -1,6 +1,6 @@
 {
   "name": "queuemetrics-connector-bull",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Connects Bull queues to QueueMetrics.io dashboard.",
   "author": "Jason Russell",
   "license": "MIT",
