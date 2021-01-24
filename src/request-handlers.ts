@@ -3,6 +3,9 @@ import { Redis } from 'ioredis';
 import { Socket } from 'socket.io-client';
 import { getQueue, queueCache } from './queues';
 
+const jobStartDefault = 0;
+const jobEndDefault = 100;
+
 interface Request {
   id: string;
   path: 'getQueues' | 'getIsQueuePaused';
@@ -48,7 +51,10 @@ export const registerRequestHandlers = ({
       name: request.data.queueName,
       prefix: request.data.queuePrefix,
     });
-    const jobs = await queue.bull.getWaiting();
+    const jobs = await queue.bull.getWaiting(
+      request.data.start || jobStartDefault,
+      request.data.end || jobEndDefault,
+    );
     return jobs;
   };
 
@@ -57,7 +63,10 @@ export const registerRequestHandlers = ({
       name: request.data.queueName,
       prefix: request.data.queuePrefix,
     });
-    const jobs = await queue.bull.getActive();
+    const jobs = await queue.bull.getActive(
+      request.data.start || jobStartDefault,
+      request.data.end || jobEndDefault,
+    );
     return jobs;
   };
 
@@ -66,7 +75,10 @@ export const registerRequestHandlers = ({
       name: request.data.queueName,
       prefix: request.data.queuePrefix,
     });
-    const jobs = await queue.bull.getDelayed();
+    const jobs = await queue.bull.getDelayed(
+      request.data.start || jobStartDefault,
+      request.data.end || jobEndDefault,
+    );
     return jobs;
   };
 
@@ -75,7 +87,10 @@ export const registerRequestHandlers = ({
       name: request.data.queueName,
       prefix: request.data.queuePrefix,
     });
-    const jobs = await queue.bull.getCompleted();
+    const jobs = await queue.bull.getCompleted(
+      request.data.start || jobStartDefault,
+      request.data.end || jobEndDefault,
+    );
     return jobs;
   };
 
@@ -84,7 +99,10 @@ export const registerRequestHandlers = ({
       name: request.data.queueName,
       prefix: request.data.queuePrefix,
     });
-    const jobs = await queue.bull.getFailed();
+    const jobs = await queue.bull.getFailed(
+      request.data.start || jobStartDefault,
+      request.data.end || jobEndDefault,
+    );
     return jobs;
   };
 
