@@ -66,6 +66,9 @@ export const updateQueuesCache = async ({
   await Promise.all(
     orphanedQueues.map(async (queue) => {
       console.log(`Removing orphaned queue from cache with key: ${queue.key}`);
+      socket.emit('remove-queue', {
+        queue: { name: queue.name, prefix: queue.prefix, key: queue.key },
+      });
       await queue.bull.close();
     }),
   );
@@ -91,6 +94,10 @@ export const updateQueuesCache = async ({
           },
         }),
       };
+
+      socket.emit('upsert-queue', {
+        queue: { name: queue.name, prefix: queue.prefix, key: queue.key },
+      });
 
       registerEventHandler({ queue, socket, apiKey });
 

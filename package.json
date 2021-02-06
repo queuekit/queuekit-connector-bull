@@ -21,16 +21,17 @@
   },
   "homepage": "https://github.com/queuemetrics/queuemetrics-connector-bull#readme",
   "bin": {
-    "queuemetrics-connector-bull": "./dist/index.js"
+    "queuemetrics-connector-bull": "./dist/bin/index.js"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc && cp ./package.json ./dist/package.json",
     "np": "np --no-2fa",
-    "start": "./index.ts"
+    "start": "./bin/index.ts"
   },
   "dependencies": {
+    "@types/p-map": "^2.0.0",
     "bull": "^3.20.0",
     "commander": "^6.2.1",
     "date-fns": "^2.16.1",

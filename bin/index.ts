@@ -6,14 +6,18 @@
 import program from 'commander';
 import Redis from 'ioredis';
 import { io } from 'socket.io-client';
-import { setIntervalAsync } from 'set-interval-async/dynamic';
+import {
+  setIntervalAsync,
+  SetIntervalAsyncTimer,
+  clearIntervalAsync,
+} from 'set-interval-async/dynamic';
 // @ts-ignore
 import redisUrlParse from 'redis-url-parse';
-import { RedisConfig } from './src/utils';
-import { updateQueuesCache } from './src/queues';
-import { registerRequestHandlers } from './src/request-handlers';
+import { RedisConfig } from '../src/utils';
+import { updateQueuesCache } from '../src/queues';
+import { registerRequestHandlers } from '../src/request-handlers';
 
-const pkg = require(`./package.json`);
+const pkg = require(`../package.json`);
 
 program.version(pkg.version);
 
@@ -73,23 +77,23 @@ program
   const { connectorName } = opts;
   const { apiKey } = opts;
 
-  const redisConfigFromUri = (opts.uri as string | undefined)
+  const redisConfigFromUri: any = (opts.uri as string | undefined)
     ? (redisUrlParse(opts.uri) as Record<string, unknown>)
     : undefined;
 
   const redisConfig: RedisConfig = {
-    host: opts.host,
-    port: Number(opts.port),
-    db: Number(opts.database),
-    password: opts.password,
-    tls: program.tls
-      ? {
-          rejectUnauthorized: false,
-          requestCert: true,
-          agent: false,
-        }
-      : undefined,
-    ...(redisConfigFromUri || {}),
+    host: redisConfigFromUri.host || opts.host,
+    port: Number(String(redisConfigFromUri.port) || opts.port),
+    db: Number(redisConfigFromUri.database || opts.database),
+    password: redisConfigFromUri.password || opts.password,
+    tls:
+      program.tls || opts.uri?.startsWith('rediss://')
+        ? {
+            rejectUnauthorized: false,
+            requestCert: true,
+            agent: false,
+          }
+        : undefined,
   };
 
   const redis = new Redis({
@@ -106,25 +110,34 @@ program
 
   const socket = io(websocketUri, { reconnectionDelayMax: 1000 });
 
-  socket.on('connect', () => {
-    console.log(`Socket connected to ${websocketUri}`);
-    socket.emit('initialize-connector-connection', {
-      apiKey,
-      connectorType: 'bull',
-      connectorName,
-      connectorVersion: pkg.version,
-    });
-  });
-
-  socket.on('disconnect', () => {
-    console.log(`Socket disconnected from ${websocketUri}`);
-  });
-
-  await updateQueuesCache({ redis, redisConfig, socket, apiKey });
+  let timer: SetIntervalAsyncTimer;
 
   registerRequestHandlers({ redis, socket });
 
-  setIntervalAsync(() => {
-    return updateQueuesCache({ redis, redisConfig, socket, apiKey });
-  }, 500);
+  socket.on('connect', () => {
+    console.log(`Socket connected to ${websocketUri}`);
+
+    socket.on('disconnect', () => {
+      console.log(`Socket disconnected from ${websocketUri}`);
+      if (timer) {
+        clearIntervalAsync(timer);
+      }
+    });
+
+    socket.emit(
+      'initialize-connector-connection',
+      {
+        apiKey,
+        connectorType: 'bull',
+        connectorName,
+        connectorVersion: pkg.version,
+      },
+      async () => {
+        await updateQueuesCache({ redis, redisConfig, socket, apiKey });
+        timer = setIntervalAsync(() => {
+          return updateQueuesCache({ redis, redisConfig, socket, apiKey });
+        }, 1000);
+      },
+    );
+  });
 })();
