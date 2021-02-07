@@ -1,3 +1,5 @@
+import d from 'debug';
+
 export interface RedisConfig {
   host: string;
   port: number;
@@ -5,3 +7,5 @@ export interface RedisConfig {
   password?: string;
   tls?: Record<string, unknown>;
 }
+
+export const debug = d('queuemetrics-connector-bull');

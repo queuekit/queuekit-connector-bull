@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io-client';
 import { addMinutes } from 'date-fns';
 import { Queue } from './queues';
+import { debug } from './utils';
 
 function utcNow() {
   const date = new Date();
@@ -36,14 +37,16 @@ export const registerEventHandler = ({
     },
   ].forEach(({ event, queueMetricType }) => {
     queue.bull.on(event, (jobId: string) => {
-      socket.volatile.emit('queue-metric', {
+      const eventData = {
         timestamp: utcNow(),
         apiKey,
         queueName: queue.name,
         queuePrefix: queue.prefix,
         type: queueMetricType,
         data: { jobId },
-      });
+      };
+      debug(`Emitting queue-metric: ${JSON.stringify(eventData)}`);
+      socket.volatile.emit('queue-metric', eventData);
     });
   });
 };

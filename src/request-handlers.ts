@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
+import debug from 'debug';
 import { Redis } from 'ioredis';
 import { Socket } from 'socket.io-client';
 import { getQueue, queueCache } from './queues';
@@ -219,11 +220,13 @@ export const registerRequestHandlers = ({
   };
 
   socket.on(`request`, async (request: Request) => {
+    debug(`Received request: ${JSON.stringify(request)}`);
     const { path } = request;
     const handler = requestHandlers[path];
     const result = await handler(request);
     const response = { request, result };
-    socket.volatile.emit('response', response);
+    debug(`Responded with: ${JSON.stringify(response)}`);
+    socket.emit('response', response);
   });
 
   return true;

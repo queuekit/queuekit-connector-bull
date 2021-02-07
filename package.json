@@ -31,10 +31,12 @@
     "start": "./bin/index.ts"
   },
   "dependencies": {
+    "@types/debug": "^4.1.5",
     "@types/p-map": "^2.0.0",
     "bull": "^3.20.0",
     "commander": "^6.2.1",
     "date-fns": "^2.16.1",
+    "debug": "^4.3.1",
     "ioredis": "^4.19.4",
     "redis-url-parse": "^2.0.0",
     "set-interval-async": "^1.0.33",

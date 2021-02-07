@@ -13,7 +13,7 @@ import {
 } from 'set-interval-async/dynamic';
 // @ts-ignore
 import redisUrlParse from 'redis-url-parse';
-import { RedisConfig } from '../src/utils';
+import { debug, RedisConfig } from '../src/utils';
 import { updateQueuesCache } from '../src/queues';
 import { registerRequestHandlers } from '../src/request-handlers';
 
@@ -71,7 +71,7 @@ program
   )
   .parse(process.argv);
 
-(async () => {
+(() => {
   const opts = program.opts();
 
   const { connectorName } = opts;
@@ -124,6 +124,7 @@ program
       }
     });
 
+    debug('Emitting initialize-connector-connection');
     socket.emit(
       'initialize-connector-connection',
       {
@@ -133,6 +134,7 @@ program
         connectorVersion: pkg.version,
       },
       async () => {
+        debug('Acknowledged initialize-connector-connection');
         await updateQueuesCache({ redis, redisConfig, socket, apiKey });
         timer = setIntervalAsync(() => {
           return updateQueuesCache({ redis, redisConfig, socket, apiKey });
