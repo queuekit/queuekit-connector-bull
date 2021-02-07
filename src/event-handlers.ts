@@ -36,7 +36,7 @@ export const registerEventHandler = ({
     },
   ].forEach(({ event, queueMetricType }) => {
     queue.bull.on(event, (jobId: string) => {
-      socket.emit('queue-metric', {
+      socket.volatile.emit('queue-metric', {
         timestamp: utcNow(),
         apiKey,
         queueName: queue.name,

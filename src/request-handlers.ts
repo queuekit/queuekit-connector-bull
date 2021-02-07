@@ -223,7 +223,7 @@ export const registerRequestHandlers = ({
     const handler = requestHandlers[path];
     const result = await handler(request);
     const response = { request, result };
-    socket.emit('response', response);
+    socket.volatile.emit('response', response);
   });
 
   return true;
