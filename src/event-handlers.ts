@@ -45,8 +45,10 @@ export const registerEventHandler = ({
         type: queueMetricType,
         data: { jobId },
       };
-      debug(`Emitting queue-metric: ${JSON.stringify(eventData)}`);
-      socket.volatile.emit('queue-metric', eventData);
+      if (socket.connected) {
+        debug(`Emitting queue-metric: ${JSON.stringify(eventData)}`);
+        socket.emit('queue-metric', eventData);
+      }
     });
   });
 };
