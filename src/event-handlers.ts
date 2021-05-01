@@ -1,12 +1,10 @@
 import { Socket } from 'socket.io-client';
-import { addMinutes } from 'date-fns';
 import { Queue } from './queues';
 import { debug } from './utils';
 
 function utcNow() {
   const date = new Date();
-  const utc = addMinutes(date, date.getTimezoneOffset());
-  return utc;
+  return date;
 }
 
 export const registerEventHandler = ({
