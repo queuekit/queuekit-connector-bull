@@ -1,16 +1,19 @@
 {
   "name": "queuemetrics-connector-bull",
   "version": "0.0.15",
-  "description": "Connects Bull queues to QueueMetrics.io dashboard.",
+  "description": "The Bull connector for QueueMetrics.io",
   "author": "Jason Russell",
   "license": "MIT",
   "preferGlobal": true,
   "keywords": [
     "queuemetrics",
     "bull",
-    "analytics",
-    "dashboard",
-    "queue"
+    "job",
+    "job-queue",
+    "job-scheduler",
+    "queue",
+    "queue-workers",
+    "worker"
   ],
   "repository": {
     "type": "git",
