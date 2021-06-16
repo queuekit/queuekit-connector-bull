@@ -225,8 +225,8 @@ export const registerRequestHandlers = ({
     const handler = requestHandlers[path];
     const result = await handler(request);
     const response = { request, result };
-    debug(`Responded with: ${JSON.stringify(response)}`);
     socket.emit('response', response);
+    debug(`Responded`);
   });
 
   return true;
