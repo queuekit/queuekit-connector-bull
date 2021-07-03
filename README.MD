@@ -36,7 +36,7 @@ Options:
 ### Example usage
 
 ```sh
-npx queuemetrics-connector-bull -u redis://<your-redis-host>:<your-redis-port>/<your-redis-db> -a <your-queuemetrics-api-key>
+npx queuekit-connector-bull -u redis://<your-redis-host>:<your-redis-port>/<your-redis-db> -a <your-queuekit-api-key>
 ```
 
 Your API key can be obtained from your [queuekit.com Dashboard](https://dashboard.queuekit.com/)
