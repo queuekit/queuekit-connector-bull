@@ -1,12 +1,12 @@
 {
-  "name": "queuemetrics-connector-bull",
+  "name": "queuekit-connector-bull",
   "version": "1.0.2",
-  "description": "The Bull connector for QueueMetrics.io",
+  "description": "The Bull connector for QueueKit.com",
   "author": "Jason Russell",
   "license": "MIT",
   "preferGlobal": true,
   "keywords": [
-    "queuemetrics",
+    "queuekit",
     "bull",
     "job",
     "job-queue",
@@ -17,14 +17,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/queuemetrics/queuemetrics-connector-bull.git"
+    "url": "git+https://github.com/queuekit/queuekit-connector-bull.git"
   },
   "bugs": {
-    "url": "https://github.com/queuemetrics/queuemetrics-connector-bull/issues"
+    "url": "https://github.com/queuekit/queuekit-connector-bull/issues"
   },
-  "homepage": "https://github.com/queuemetrics/queuemetrics-connector-bull#readme",
+  "homepage": "https://github.com/queuekit/queuekit-connector-bull#readme",
   "bin": {
-    "queuemetrics-connector-bull": "./dist/bin/index.js"
+    "queuekit-connector-bull": "./dist/bin/index.js"
   },
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
