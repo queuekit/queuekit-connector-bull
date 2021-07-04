@@ -40,3 +40,9 @@ npx queuekit-connector-bull -u redis://<your-redis-host>:<your-redis-port>/<your
 ```
 
 Your API key can be obtained from your [queuekit.com Dashboard](https://dashboard.queuekit.com/)
+
+### Other connectors
+
+[Bull connector](https://github.com/queuekit/queuekit-connector-bull)
+[BullMQ connector](https://github.com/queuekit/queuekit-connector-bullmq)
+[Celery connector](https://github.com/queuekit/queuekit-connector-celery)
