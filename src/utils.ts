@@ -8,4 +8,4 @@ export interface RedisConfig {
   tls?: Record<string, unknown>;
 }
 
-export const debug = d('queuemetrics-connector-bull');
+export const debug = d('queuekit-connector-bull');
