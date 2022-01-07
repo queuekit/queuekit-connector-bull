@@ -4,7 +4,7 @@ This is a small service which enables you to connect your [Bull](https://github.
 
 This connector is designed to be used in production-grade environments and does not require the sharing of passwords or SSH tunnels to function. It is also very useful to use the connector in local development environments for rapid queue development and debugging.
 
-The connector is very lightweight and efficient, and uses minimal resources.
+The connector is lightweight, efficient and production ready, and uses minimal resources.
 
 ## Installation
 
