@@ -29,7 +29,7 @@ program
   )
   .requiredOption(
     '-a, --api-key <api-key>',
-    'QueueMetrics.io organization API key. Get this from https://dashboard.queuemetrics.io',
+    'QueueKit.com organization API key. Get this from https://dashboard.queuekit.com',
     process.env.API_KEY,
   )
   .option(
@@ -66,8 +66,8 @@ program
   )
   .option(
     '-b, --backend <backend>',
-    'QueueMetrics backend. Defaults to wss://api.queuemetrics.io',
-    process.env.BACKEND || 'wss://api.queuemetrics.io',
+    'QueueKit backend. Defaults to wss://api.queuekit.com',
+    process.env.BACKEND || 'wss://api.queuekit.com',
   )
   .parse(process.argv);
 
