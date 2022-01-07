@@ -31,6 +31,7 @@
   "scripts": {
     "build": "tsc && cp ./package.json ./dist/package.json",
     "np": "np --no-2fa",
+    "test": "exit",
     "start": "./bin/index.ts"
   },
   "dependencies": {
