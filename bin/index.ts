@@ -22,6 +22,8 @@ const pkg = require(`../package.json`);
 
 program.version(pkg.version);
 
+const defaultPort = 6379;
+
 program
   .requiredOption(
     '-n, --connector-name <connection-name>',
@@ -40,8 +42,8 @@ program
   )
   .option(
     '-p, --port <port>',
-    'Redis port. Defaults to 6379.',
-    process.env.REDIS_PORT || '6379',
+    `Redis port. Defaults to ${defaultPort}.`,
+    process.env.REDIS_PORT || `${defaultPort}`,
   )
   .option(
     '-d, --database <database>',
@@ -84,7 +86,7 @@ program
 
   const redisConfig: RedisConfig = {
     host: redisConfigFromUri?.host || opts.host,
-    port: Number(String(redisConfigFromUri?.port) || opts.port),
+    port: Number(String(redisConfigFromUri?.port || defaultPort) || opts.port),
     db: Number(redisConfigFromUri?.database || opts.database),
     password: redisConfigFromUri?.password || opts.password,
     tls:
