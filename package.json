@@ -1,6 +1,6 @@
 {
   "name": "queuekit-connector-bull",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "The Bull connector for QueueKit.com",
   "author": "Jason Russell",
   "license": "MIT",
