@@ -78,15 +78,15 @@ program
   const { connectorName } = opts;
   const { apiKey } = opts;
 
-  const redisConfigFromUri: any = (opts.uri as string | undefined)
+  const redisConfigFromUri = (opts.uri as string | undefined)
     ? (redisUrlParse(opts.uri) as Record<string, unknown>)
     : undefined;
 
   const redisConfig: RedisConfig = {
-    host: redisConfigFromUri.host || opts.host,
-    port: Number(String(redisConfigFromUri.port) || opts.port),
-    db: Number(redisConfigFromUri.database || opts.database),
-    password: redisConfigFromUri.password || opts.password,
+    host: redisConfigFromUri?.host || opts.host,
+    port: Number(String(redisConfigFromUri?.port) || opts.port),
+    db: Number(redisConfigFromUri?.database || opts.database),
+    password: redisConfigFromUri?.password || opts.password,
     tls:
       program.tls || opts.uri?.startsWith('rediss://')
         ? {
