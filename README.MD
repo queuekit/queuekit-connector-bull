@@ -36,7 +36,17 @@ Options:
 ### Example usage
 
 ```sh
-npx queuekit-connector-bull -u redis://<your-redis-host>:<your-redis-port>/<your-redis-db> -a <your-queuekit-api-key>
+npx queuekit-connector-bull -u redis://<redis-host>:<redis-port>/<db-number> -a <your-queuekit-api-key>
+```
+
+Your API key can be obtained from your [queuekit.com Dashboard](https://dashboard.queuekit.com/)
+
+### Usage with Docker
+
+The connector can be run with our pre-built docker image:
+
+```sh
+docker run -it --net=host queuekit/queuekit-connector-bull -u redis://<redis-host>:<redis-port>/<db-number> -a <your-queuekit-api-key>
 ```
 
 Your API key can be obtained from your [queuekit.com Dashboard](https://dashboard.queuekit.com/)
