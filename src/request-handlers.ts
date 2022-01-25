@@ -112,9 +112,16 @@ export const registerRequestHandlers = ({
       name: request.data.queueName,
       prefix: request.data.queuePrefix,
     });
-    const job = await queue.bull.getJob(request.data.jobId);
-    const state = await job?.getState();
-    return { ...job, state };
+
+    const bullJob = await queue.bull.getJob(request.data.jobId);
+
+    if (!bullJob) {
+      return {};
+    }
+
+    const state = await bullJob.getState();
+
+    return { ...bullJob.toJSON(), state };
   };
 
   const pauseQueue = async (request: Request) => {
@@ -163,7 +170,7 @@ export const registerRequestHandlers = ({
     await job?.discard();
     const discardedJob = await queue.bull.getJob(request.data.jobId);
     const state = await discardedJob?.getState();
-    return { ...discardedJob, state };
+    return { ...discardedJob?.toJSON(), state };
   };
 
   const promoteJob = async (request: Request) => {
@@ -175,7 +182,7 @@ export const registerRequestHandlers = ({
     await job?.promote();
     const promotedJob = await queue.bull.getJob(request.data.jobId);
     const state = await promotedJob?.getState();
-    return { ...promotedJob, state };
+    return { ...promotedJob?.toJSON(), state };
   };
 
   const removeJob = async (request: Request) => {
@@ -196,7 +203,7 @@ export const registerRequestHandlers = ({
     await job?.retry();
     const promotedJob = await queue.bull.getJob(request.data.jobId);
     const state = await promotedJob?.getState();
-    return { ...promotedJob, state };
+    return { ...promotedJob?.toJSON(), state };
   };
 
   const requestHandlers: { [key: string]: (request: Request) => any } = {
